@@ -34,9 +34,10 @@ class Sprite {
         c.fillRect(this.position.x, this.position.y, this.width, this.height)
         
         //attack box drawn
-        if (this.isAttacking){
-        c.fillStyle = 'green'
-        c.fillRect(this.attackBox.position.x, this.attackBox.position.y, this.attackBox.width, this.attackBox.height)
+        if (this.isAttacking)
+        {
+            c.fillStyle = 'green'
+            c.fillRect(this.attackBox.position.x, this.attackBox.position.y, this.attackBox.width, this.attackBox.height)
         }
     }
 
@@ -208,6 +209,7 @@ window.addEventListener('keydown', (event) => {
             break
         case 'ArrowDown' :
             enemy.isAttacking = true
+            enemy.attack()
             break
     }
 })
