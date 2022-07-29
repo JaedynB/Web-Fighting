@@ -27,6 +27,7 @@ class Sprite {
         }
         this.color = color
         this.isAttacking
+        this.health = 100
     }
 
     draw() {
@@ -122,6 +123,34 @@ function rectangularCollision({rectangle1,rectangle2})
     )
 }
 
+let timer = 10
+function decreaseTimer()
+{
+    
+    if (timer > 0)
+    {
+        setTimeout(decreaseTimer, 1000)
+        timer--
+        document.querySelector('#timer').innerHTML = timer
+    }
+    if (timer === 0)
+    {
+        document.querySelector('#displayText').style.display = 'flex'
+        if (player.health === enemy.health)
+        {
+            document.querySelector('#displayText').innerHTML = 'Tie'
+
+        } else if (player.health > enemy.health)
+        {
+            document.querySelector('#displayText').innerHTML = 'Player 1 Wins'
+        } else if (enemy.health > player.health)
+        {
+            document.querySelector('#displayText').innerHTML = 'Player 2 Wins'
+        }
+    }
+}
+decreaseTimer()
+
 function animate() {
     window.requestAnimationFrame(animate)
     c.fillStyle = 'black'
@@ -158,7 +187,8 @@ function animate() {
         && player.isAttacking
     ) {
         player.isAttacking = false
-        console.log('go')
+        enemy.health -= 10
+        document.querySelector('#enemyHealth').style.width = enemy.health + '%'
     }
     //detect collision for enemy
     if (
@@ -169,7 +199,8 @@ function animate() {
         && enemy.isAttacking
     ) {
         enemy.isAttacking = false
-        console.log('enemy is attacking')
+        player.health -= 10
+        document.querySelector('#playerHealth').style.width = player.health + '%'
     }
 }
 
@@ -208,7 +239,7 @@ window.addEventListener('keydown', (event) => {
             enemy.lastKey = 'ArrowRight'
             break
         case 'ArrowDown' :
-            enemy.isAttacking = true
+            //enemy.isAttacking = true
             enemy.attack()
             break
     }

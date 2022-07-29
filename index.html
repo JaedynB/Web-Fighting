@@ -1,5 +1,72 @@
-<canvas>
+<head>
+    <style>
+        *
+        {
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+    <!--Red Container Div-->
+    <div style= "position: relative; display: inline-block;">
+        <!--Smaller Container Div-->
+        <div style= "position: absolute; display: flex; width: 100%; align-items: center; padding: 20px;">
+            <!--Player Health-->
+            <div style = "position: relative; height: 30px; width: 100%; display: flex; justify-content: flex-end;">
+                <div style = "background-color: yellow; height: 30px; width: 100%;"></div>
+                <div 
+                    id="playerHealth"
+                    style = "position: absolute; background: blue; top: 0; right: 0; bottom: 0; width: 100%;">
+                </div>
+            </div>
+            <!--Timer-->
+            <div 
+            id= "timer"
+            style= 
+                "
+                    background-color: red; 
+                    width:100px; 
+                    height: 100px; 
+                    flex-shrink: 0;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                "
+            >
+                10
+            </div>
+            <!--Enemy Health-->
+            <div style = "position: relative; height: 30px; width: 100%;">
+                <div 
+                    style = "background-color: yellow; height: 30px;"
+                ></div>
 
-</canvas>
+                <div 
+                    id="enemyHealth"
+                    style = "position: absolute; background: blue; top: 0; right: 0; bottom: 0; left: 0">
+                </div>
+            </div>
+        </div>
+    <!--Winner message-->
+    <div 
+    id = "displaytext"
+    style = 
+    "  
+        position: absolute; 
+        color: white; 
+        align-items: center; 
+        justify-content: center;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        display: none;
+    ">
+    
+        Tie
+    </div>
+    <canvas></canvas>
+    </div>
 
-<script src= "index.js"></script>
+    <script src= "index.js"></script>
+</body>
