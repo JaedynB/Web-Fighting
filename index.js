@@ -72,8 +72,18 @@ const player = new Fighter({
         {
             imageSrc: './assets/samuraiMack/Attack1.png',
             framesMax: 6
+        },
+        takeHit:
+        {
+            imageSrc: './assets/samuraiMack/Take Hit - white silhouette.png',
+            framesMax: 4
+        },
+        death:
+        {
+            imageSrc: './assets/samuraiMack/Death.png',
+            framesMax: 6
         }
-    },
+    }, 
     attackBox:
     {
         offset:
@@ -133,16 +143,26 @@ const enemy = new Fighter({
         {
             imageSrc: './assets/kenji/Attack1.png',
             framesMax: 4
+        },
+        takeHit:
+        {
+            imageSrc: './assets/kenji/Take hit.png',
+            framesMax: 3
+        },
+        death:
+        {
+            imageSrc: './assets/kenji/Death.png',
+            framesMax: 7
         }
     },
     attackBox:
     {
         offset:
         {
-            x: 0,
-            y: 0
+            x: -170,
+            y: 50
         },
-        width: 100,
+        width: 170,
         height: 50
     }
 })
@@ -233,8 +253,8 @@ function animate() {
         //4th frame of attack
         && player.isAttacking && player.framesCurrent === 4
     ) {
+        enemy.takeHit(20)
         player.isAttacking = false
-        enemy.health -= 10
         document.querySelector('#enemyHealth').style.width = enemy.health + '%'
     }
 
@@ -243,17 +263,24 @@ function animate() {
     {
         player.isAttacking = false
     }
+
     //detect collision for enemy
     if (
         rectangularCollision({
             rectangle1: enemy,
             rectangle2: player
         })
-        && enemy.isAttacking
+        && enemy.isAttacking && enemy.framesCurrent === 2
     ) {
+        player.takeHit(10)
         enemy.isAttacking = false
-        player.health -= 10
         document.querySelector('#playerHealth').style.width = player.health + '%'
+    }
+
+    //if enemy misses
+    if (enemy.isAttacking && enemy.framesCurrent === 2)
+    {
+        enemy.isAttacking = false
     }
 
     //end game based on health
@@ -266,40 +293,45 @@ function animate() {
 animate()
 
 window.addEventListener('keydown', (event) => {
-    
-    switch (event.key) 
+    if(!player.dead)
     {
-        case 'w' :
-            player.velocity.y = -20
-            break
-        case 'a' :
-            keys.a.pressed = true
-            player.lastKey = 'a'
-            break
-        case 'd' :
-            keys.d.pressed = true
-            player.lastKey = 'd'
-            break
-        case ' ':
-            player.attack()
-            break
+        switch (event.key) 
+        {
+            case 'w' :
+                player.velocity.y = -20
+                break
+            case 'a' :
+                keys.a.pressed = true
+                player.lastKey = 'a'
+                break
+            case 'd' :
+                keys.d.pressed = true
+                player.lastKey = 'd'
+                break
+            case ' ':
+                player.attack()
+                break
+        }
     }
-    switch (event.key)
-    {   
-        case 'ArrowUp' :
-            enemy.velocity.y = -20
-            break
-        case 'ArrowLeft' :
-            keys.ArrowLeft.pressed = true
-            enemy.lastKey = 'ArrowLeft'
-            break
-        case 'ArrowRight' :
-            keys.ArrowRight.pressed = true
-            enemy.lastKey = 'ArrowRight'
-            break
-        case 'ArrowDown' :
-            enemy.attack()
-            break
+    if(!enemy.dead)
+    {
+        switch (event.key)
+        {   
+            case 'ArrowUp' :
+                enemy.velocity.y = -20
+                break
+            case 'ArrowLeft' :
+                keys.ArrowLeft.pressed = true
+                enemy.lastKey = 'ArrowLeft'
+                break
+            case 'ArrowRight' :
+                keys.ArrowRight.pressed = true
+                enemy.lastKey = 'ArrowRight'
+                break
+            case 'ArrowDown' :
+                enemy.attack()
+                break
+        }
     }
 })
 
