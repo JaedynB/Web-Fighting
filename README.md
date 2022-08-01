@@ -1,6 +1,9 @@
 # Web-Fighting
 This project is a simple fighting game created in JavaScript and HTML. 
 
+Project demo:
+https://phenomenal-eclair-95e8f2.netlify.app/
+
 This project was created as a follow-along exercise to the YouTube video: 
 https://www.youtube.com/watch?v=vyqbNFMDRGQ&ab_channel=ChrisCourses
 
