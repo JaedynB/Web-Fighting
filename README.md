@@ -16,3 +16,15 @@ This project is not in a 'finished' state as there are a few ideas that I have i
 
 If you are interested in my work then please visit my site: https://jaedyn-portfolio.netlify.app/
 
+Controls:
+Player 1:
+W - Jump
+A - Left
+D - Right
+SpaceBar - Attack
+
+Player 2:
+Left Arrow - Left
+Right Arrow - Right
+Up Arrow - Jump
+Down Arrow - Attack
