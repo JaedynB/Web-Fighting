@@ -89,6 +89,41 @@ const enemy = new Fighter({
     offset: {
         x: -50,
         y: 0
+    },
+    imageSrc: './assets/kenji/Idle.png',
+    framesMax: 4,
+    scale: 2.5,
+    offset: {
+        x: 215,
+        y: 167
+    },
+    sprites: 
+    {
+        idle:
+        {
+            imageSrc: './assets/kenji/Idle.png',
+            framesMax: 4
+        },
+        run:
+        {
+            imageSrc: './assets/kenji/Run.png',
+            framesMax: 8
+        },
+        jump:
+        {
+            imageSrc: './assets/kenji/Jump.png',
+            framesMax: 2
+        },
+        fall:
+        {
+            imageSrc: './assets/kenji/Fall.png',
+            framesMax: 2
+        },
+        attack1:
+        {
+            imageSrc: './assets/kenji/Attack1.png',
+            framesMax: 4
+        }
     }
 })
 
@@ -116,7 +151,7 @@ function animate() {
     background.update()
     shop.update()
     player.update()
-    //enemy.update()
+    enemy.update()
 
     //initial speed
     player.velocity.x = 0
@@ -148,10 +183,26 @@ function animate() {
     if (keys.ArrowLeft.pressed && enemy.lastKey === 'ArrowLeft')
     {
         enemy.velocity.x = -5
+        enemy.switchSprite('run')
     } else if (keys.ArrowRight.pressed && enemy.lastKey === 'ArrowRight')
     {
         enemy.velocity.x = 5
+        enemy.switchSprite('run')
+    } 
+    else 
+    {
+        enemy.switchSprite('idle')
     }
+
+    //enemy currently in the air
+    if (enemy.velocity.y < 0)
+    {
+        enemy.switchSprite('jump')
+    } else if (enemy.velocity.y > 0) 
+    {
+        enemy.switchSprite('fall')
+    }
+
 
     //detect collision for player
     if (
@@ -220,7 +271,6 @@ window.addEventListener('keydown', (event) => {
             enemy.lastKey = 'ArrowRight'
             break
         case 'ArrowDown' :
-            //enemy.isAttacking = true
             enemy.attack()
             break
     }
