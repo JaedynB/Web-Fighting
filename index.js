@@ -73,6 +73,16 @@ const player = new Fighter({
             imageSrc: './assets/samuraiMack/Attack1.png',
             framesMax: 6
         }
+    },
+    attackBox:
+    {
+        offset:
+        {
+            x: 100,
+            y: 50
+        },
+        width: 158,
+        height: 50
     }
 })
 
@@ -124,6 +134,16 @@ const enemy = new Fighter({
             imageSrc: './assets/kenji/Attack1.png',
             framesMax: 4
         }
+    },
+    attackBox:
+    {
+        offset:
+        {
+            x: 0,
+            y: 0
+        },
+        width: 100,
+        height: 50
     }
 })
 
@@ -210,11 +230,18 @@ function animate() {
             rectangle1: player,
             rectangle2: enemy
         })
-        && player.isAttacking
+        //4th frame of attack
+        && player.isAttacking && player.framesCurrent === 4
     ) {
         player.isAttacking = false
         enemy.health -= 10
         document.querySelector('#enemyHealth').style.width = enemy.health + '%'
+    }
+
+    //if player misses
+    if (player.isAttacking && player.framesCurrent === 4)
+    {
+        player.isAttacking = false
     }
     //detect collision for enemy
     if (
